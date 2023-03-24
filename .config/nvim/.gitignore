@@ -1,6 +1,1 @@
-plugin
-custom
-spell
-ftplugin
-coc-settings.json
-.luarc.json
+**Plugin/packer_compiled.lua
