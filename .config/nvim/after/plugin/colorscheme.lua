@@ -33,6 +33,5 @@ require("tokyonight").setup({
   ---@param colors ColorScheme
   on_highlights = function(highlights, colors) end,
 })
--- Lua
-vim.cmd[[colorscheme tokyonight-night]]
-
+-- Pick desired colorscheme
+vim.cmd[[colorscheme tokyonight]]
