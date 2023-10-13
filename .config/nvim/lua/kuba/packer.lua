@@ -1,92 +1,117 @@
 -- This file can be loaded by calling `lua require('plugins')` from your init.vim
 
 -- Only required if you have packer configured as `opt`
-vim.cmd [[packadd packer.nvim]]
+vim.cmd([[packadd packer.nvim]])
 
-return require('packer').startup(function(use)
+return require("packer").startup(function(use)
   -- Packer can manage itself
-  use 'wbthomason/packer.nvim'
+  use("wbthomason/packer.nvim")
 
   -- TELESCOPE
-  use {
-    'nvim-telescope/telescope.nvim', tag = '0.1.1',
+  use({
+    "nvim-telescope/telescope.nvim",
+    tag = "0.1.1",
     -- or                            , branch = '0.1.x',
-    requires = { {'nvim-lua/plenary.nvim'} }
-  }
-  -- THEME
-  use 'folke/tokyonight.nvim'
-  use "rebelot/kanagawa.nvim"
+    requires = { { "nvim-lua/plenary.nvim" } },
+  })
+  -- THEMES
+  use({ "catppuccin/nvim", as = "catppuccin" })
+  use("shaunsingh/nord.nvim")
+  use({
+    "mcchrish/zenbones.nvim",
+    -- Optionally install Lush. Allows for more configuration or extending the colorscheme
+    -- If you don't want to install lush, make sure to set g:zenbones_compat = 1
+    -- In Vim, compat mode is turned on as Lush only works in Neovim.
+    requires = "rktjmp/lush.nvim",
+  })
+
   -- UNDOTREE
-  use 'mbbill/undotree'
+  use("mbbill/undotree")
   -- TREESITTER
-  use ('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
+  use("nvim-treesitter/nvim-treesitter", { run = ":TSUpdate" })
   -- LSP
-  use {
-    'VonHeikemen/lsp-zero.nvim',
-    branch = 'v1.x',
+  use({
+    "VonHeikemen/lsp-zero.nvim",
+    branch = "v3.x",
     requires = {
+      { "williamboman/mason.nvim" },
+      { "williamboman/mason-lspconfig.nvim" },
+
       -- LSP Support
-      {'neovim/nvim-lspconfig'},             -- Required
-      {'williamboman/mason.nvim'},           -- Optional
-      {'williamboman/mason-lspconfig.nvim'}, -- Optional
-
+      { "neovim/nvim-lspconfig" },
       -- Autocompletion
-      {'hrsh7th/nvim-cmp'},         -- Required
-      {'hrsh7th/cmp-nvim-lsp'},     -- Required
-      {'hrsh7th/cmp-buffer'},       -- Optional
-      {'hrsh7th/cmp-path'},         -- Optional
-      {'saadparwaiz1/cmp_luasnip'}, -- Optional
-      {'hrsh7th/cmp-nvim-lua'},     -- Optional
+      { "hrsh7th/nvim-cmp" },
+      { "hrsh7th/cmp-nvim-lsp" },
+      { "L3MON4D3/LuaSnip" },
+    },
+  })
 
-      -- Snippets
-      {'L3MON4D3/LuaSnip'},             -- Required
-      {'rafamadriz/friendly-snippets'}, -- Optional
-    }
-  }
+  --FORMATING
+  use("nvimtools/none-ls.nvim")
+
   -- LUALINE (BOTTOM LINE)
-  use {
-    'nvim-lualine/lualine.nvim',
-    requires = { 'kyazdani42/nvim-web-devicons', opt = true }
-  }
-  -- LATEX/ SNIPPETS 
-  use 'lervag/vimtex'
+  use({
+    "nvim-lualine/lualine.nvim",
+    requires = { "kyazdani42/nvim-web-devicons", opt = true },
+  })
 
-  use {
-    "iurimateus/luasnip-latex-snippets.nvim",
-    -- replace "lervag/vimtex" with "nvim-treesitter/nvim-treesitter" if you're
-    -- using treesitter.
-    requires = { "L3MON4D3/LuaSnip", "nvim-treesitter/nvim-treesitter" },
-    config = function()
-      require'luasnip-latex-snippets'.setup({ use_treesitter = true })
-    end,
-    -- treesitter is required for markdown
-    ft = { "tex", "markdown" },
-  }
+  -- LATEX/ SNIPPETS
+  use("lervag/vimtex")
+
+  --use {
+  --  "iurimateus/luasnip-latex-snippets.nvim",
+  --  -- replace "lervag/vimtex" with "nvim-treesitter/nvim-treesitter" if you're
+  --  -- using treesitter.
+  --  requires = { "L3MON4D3/LuaSnip", "nvim-treesitter/nvim-treesitter" },
+  --  config = function()
+  --    require'luasnip-latex-snippets'.setup({ use_treesitter = true })
+  --  end,
+  --  -- treesitter is required for markdown
+  --  ft = { "tex", "markdown" },
+  --}
 
   -- TOGGLETERM
-  use {"akinsho/toggleterm.nvim", tag = '*', config = function()
-    require("toggleterm").setup()
-  end}
+  use({
+    "akinsho/toggleterm.nvim",
+    tag = "*",
+    config = function()
+      require("toggleterm").setup()
+    end,
+  })
 
   -- Autopairs
-  use {
+  use({
     "windwp/nvim-autopairs",
-    config = function () require("nvim-autopairs").setup {} end
-  }
+    config = function()
+      require("nvim-autopairs").setup({})
+    end,
+  })
   -- Unless you are still migrating, remove the deprecated commands from v1.x
   vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
 
-  use {
+  -- Icons for neotree
+  use("nvim-tree/nvim-web-devicons") -- not strictly required, but recommended
+  -- Neotree
+  use({
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v2.x",
-    requires = { 
+    requires = {
       "nvim-lua/plenary.nvim",
-      "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
       "MunifTanjim/nui.nvim",
-    }
-  }
-  use 'christoomey/vim-tmux-navigator'
-  use 'mhartington/formatter.nvim' 
-  use('jose-elias-alvarez/null-ls.nvim')
-  use('MunifTanjim/prettier.nvim')
+    },
+  })
+
+  -- Github
+  use({
+    "NeogitOrg/neogit",
+    dependencies = {
+      "nvim-lua/plenary.nvim", -- required
+      "nvim-telescope/telescope.nvim", -- optional
+      "sindrets/diffview.nvim", -- optional
+      "ibhagwan/fzf-lua", -- optional
+    },
+    config = true,
+  })
+
+  use("christoomey/vim-tmux-navigator")
 end)
