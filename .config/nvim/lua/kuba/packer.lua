@@ -12,19 +12,10 @@ return require("packer").startup(function(use)
     "nvim-telescope/telescope.nvim",
     tag = "0.1.5",
     -- or, branch = '0.1.x',
-    requires = { { "nvim-lua/plenary.nvim" } },
+    requires = { "nvim-lua/plenary.nvim" },
   })
   -- THEMES
   use({ "catppuccin/nvim", as = "catppuccin" })
-  use("shaunsingh/nord.nvim")
-  use({
-    "mcchrish/zenbones.nvim",
-    -- Optionally install Lush. Allows for more configuration or extending the colorscheme
-    -- If you don't want to install lush, make sure to set g:zenbones_compat = 1
-    -- In Vim, compat mode is turned on as Lush only works in Neovim.
-    requires = "rktjmp/lush.nvim",
-  })
-
   -- UNDOTREE
   use("mbbill/undotree")
   -- TREESITTER
@@ -42,8 +33,8 @@ return require("packer").startup(function(use)
       -- Autocompletion
       { "hrsh7th/nvim-cmp" },
       { "hrsh7th/cmp-nvim-lsp" },
-      { "L3MON4D3/LuaSnip" },
-    },
+      { "L3MON4D3/LuaSnip" }
+    }
   })
   --FORMATING
   use { 'mhartington/formatter.nvim' }
@@ -120,7 +111,6 @@ return require("packer").startup(function(use)
       },
     },
     config = function()
-      -- If you want icons for diagnostic errors, you'll need to define them somewhere:
       vim.fn.sign_define("DiagnosticSignError", { text = " ", texthl = "DiagnosticSignError" })
       vim.fn.sign_define("DiagnosticSignWarn", { text = " ", texthl = "DiagnosticSignWarn" })
       vim.fn.sign_define("DiagnosticSignInfo", { text = " ", texthl = "DiagnosticSignInfo" })

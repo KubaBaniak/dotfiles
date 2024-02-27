@@ -1,0 +1,25 @@
+import = [
+    "~/.config/alacritty/themes/themes/catppuccin_mocha.toml"
+]
+
+shell = "/usr/bin/zsh"
+
+[window]
+opacity = 0.98
+startup_mode = "Fullscreen"
+
+[font]
+normal = { family = "IosevkaTerm Nerd Font", style = "Regular" }
+size = 12
+
+[selection]
+save_to_clipboard = true
+
+[bell]
+color = "#003300"
+duration = 32
+
+[keyboard]
+bindings = [
+	{ key = "PageUp", action = "ScrollLineUp" }
+]

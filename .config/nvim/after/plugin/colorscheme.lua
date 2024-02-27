@@ -8,4 +8,4 @@
 --require('nord').set()
 --vim.cmd[[colorscheme nord]]
 
-vim.cmd.colorscheme("catppuccin-mocha")
+vim.cmd.colorscheme "catppuccin-mocha"
