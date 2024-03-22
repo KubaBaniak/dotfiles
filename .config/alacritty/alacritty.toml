@@ -10,7 +10,7 @@ startup_mode = "Fullscreen"
 
 [font]
 normal = { family = "IosevkaTerm Nerd Font", style = "Regular" }
-size = 12
+size = 16
 
 [selection]
 save_to_clipboard = true
