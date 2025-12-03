@@ -1,13 +1,15 @@
 return {
   "NeogitOrg/neogit",
+  lazy = true,
   dependencies = {
     "nvim-lua/plenary.nvim", -- required
     "sindrets/diffview.nvim", -- optional - Diff integration
 
-    -- Only one of these is needed, not both.
+    -- Only one of these is needed.
     "nvim-telescope/telescope.nvim", -- optional
-    --"ibhagwan/fzf-lua",              -- optional
   },
-  config = true,
-  vim.api.nvim_set_keymap("n", "<Leader>g", [[:Neogit kind=vsplit<CR>]], { noremap = true, silent = true }),
+  cmd = "Neogit",
+  keys = {
+    { "<leader>gg", "<cmd>Neogit<cr>", desc = "Show Neogit UI" },
+  },
 }

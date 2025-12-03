@@ -26,4 +26,18 @@ vim.opt.isfname:append("@-@")
 
 vim.opt.updatetime = 50
 
-vim.opt.guifont='Iosevka Nerd Font'
+vim.opt.guifont = "Iosevka Nerd Font"
+
+vim.api.nvim_create_autocmd({ "FileType" }, {
+  callback = function()
+    vim.opt.foldlevel = 99
+    vim.opt.foldlevelstart = 99
+    vim.opt.foldenable = true
+    if require("nvim-treesitter.parsers").has_parser() then
+      vim.opt_local.foldmethod = "expr"
+      vim.opt_local.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+    else
+      vim.opt_local.foldmethod = "syntax" -- fallback jeśli brak parsera
+    end
+  end,
+})
