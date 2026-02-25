@@ -145,6 +145,6 @@ return {
     vim.keymap.set({ "n", "v" }, "<leader>mp", format_hunks, { desc = "Smart Format (Git Hunks)" })
 
     -- Toggle between Global and Git Chunk modes
-    vim.keymap.set("n", "cf", toggle_format_mode, { desc = "Toggle Formatting Mode" })
+    vim.keymap.set("n", "tf", toggle_format_mode, { desc = "Toggle Formatting Mode" })
   end,
 }

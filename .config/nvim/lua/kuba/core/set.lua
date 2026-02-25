@@ -33,11 +33,12 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     vim.opt.foldlevel = 99
     vim.opt.foldlevelstart = 99
     vim.opt.foldenable = true
-    if require("nvim-treesitter.parsers").has_parser() then
+    local ok, parsers = pcall(require, "nvim-treesitter.parsers")
+    if ok and parsers.has_parser() then
       vim.opt_local.foldmethod = "expr"
       vim.opt_local.foldexpr = "v:lua.vim.treesitter.foldexpr()"
     else
-      vim.opt_local.foldmethod = "syntax" -- fallback jeśli brak parsera
+      vim.opt_local.foldmethod = "syntax"
     end
   end,
 })

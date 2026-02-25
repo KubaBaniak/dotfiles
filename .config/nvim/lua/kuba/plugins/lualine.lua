@@ -5,16 +5,29 @@ return {
     require("lualine").setup({
       options = {
         theme = "catppuccin-mocha",
+        component_separators = { left = "", right = "" },
+        section_separators = { left = "", right = "" },
       },
       sections = {
-        lualine_a = {
+        lualine_a = { "mode" },
+        lualine_b = { "branch", "diff", "diagnostics" },
+        lualine_c = {
           {
             "filename",
             file_status = true,
-            newfile_status = false,
+            newfile_status = true,
             path = 1,
+            symbols = {
+              modified = " ●",
+              readonly = " ",
+              unnamed = "[No Name]",
+              newfile = "[New]",
+            },
           },
         },
+        lualine_x = { "encoding", "fileformat", "filetype" },
+        lualine_y = { "progress" },
+        lualine_z = { "location" },
       },
     })
   end,
