@@ -29,6 +29,7 @@ require("lazy").setup({
     { import = "kuba.plugins" },
     { import = "kuba.plugins.lsp" },
     { import = "kuba.plugins.ai" },
+    { import = "kuba.plugins.git" },
   },
   -- Configure any other settings here. See the documentation for more details.
   -- colorscheme that will be used when installing plugins.
