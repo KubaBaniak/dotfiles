@@ -8,8 +8,6 @@ return {
         "cssls",
         "tailwindcss",
         "lua_ls",
-        "graphql",
-        "prismals",
         "eslint",
         "copilot",
       },

@@ -28,6 +28,8 @@ vim.opt.updatetime = 50
 
 vim.opt.guifont = "Iosevka Nerd Font"
 
+
+
 vim.api.nvim_create_autocmd({ "FileType" }, {
   callback = function()
     vim.opt.foldlevel = 99

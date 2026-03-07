@@ -12,6 +12,11 @@ return {
       require("neo-tree").setup({
         popup_border_style = "rounded",
 
+        source_selector = {
+          winbar = true,
+          tabs_layout = "equal",
+        },
+
         filesystem = {
           follow_current_file = {
             enabled = true,
