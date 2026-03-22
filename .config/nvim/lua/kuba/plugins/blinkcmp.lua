@@ -16,10 +16,20 @@ return {
     },
     sources = {
       default = { "lsp", "path", "snippets", "buffer", "copilot" },
+      per_filetype = {
+        codecompanion = { "codecompanion" },
+        codecompanion_input = { "codecompanion" },
+      },
       providers = {
         copilot = {
           name = "copilot",
           module = "blink-copilot",
+          score_offset = 100,
+          async = true,
+        },
+        codecompanion = {
+          name = "CodeCompanion",
+          module = "codecompanion.providers.completion.blink",
           score_offset = 100,
           async = true,
         },

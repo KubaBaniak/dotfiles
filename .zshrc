@@ -112,6 +112,9 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 
 export PATH=$PATH:/usr/local/go/bin
 
+# Secrets (not tracked in dotfiles)
+[[ -f ~/.secrets ]] && source ~/.secrets
+
 # Dotfiles
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 

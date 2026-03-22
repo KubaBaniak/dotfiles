@@ -19,6 +19,17 @@ return {
       opts = {
         log_level = "ERROR",
       },
+      interactions = {
+        chat = {
+          tools = {
+            ["web_search"] = {
+              opts = {
+                adapter = "tavily",
+              },
+            },
+          },
+        },
+      },
       display = {
         chat = {
           window = {
