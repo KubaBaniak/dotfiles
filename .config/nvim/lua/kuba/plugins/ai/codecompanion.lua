@@ -11,6 +11,13 @@ return {
   },
   config = function()
     require("codecompanion").setup({
+      prompt_library = {
+        markdown = {
+          dirs = {
+            vim.fn.stdpath("config") .. "/lua/kuba/plugins/ai/prompts",
+          },
+        },
+      },
       strategies = {
         chat = { adapter = { name = "copilot", model = "claude-sonnet-4.6" } },
         inline = { adapter = { name = "copilot", model = "claude-sonnet-4.6" } },

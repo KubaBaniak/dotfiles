@@ -1,6 +1,6 @@
 return {
   "catppuccin/nvim",
-  name = "catppuccin",
+  name = "catppuccin-nvim",
   priority = 1000,
   config = function()
     -- REQUIRED
@@ -11,6 +11,6 @@ return {
       transparent_background = false,
     })
 
-    vim.cmd.colorscheme("catppuccin")
+    vim.cmd.colorscheme("catppuccin-nvim")
   end,
 }

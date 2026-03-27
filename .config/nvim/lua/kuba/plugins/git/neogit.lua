@@ -11,13 +11,6 @@ return {
     "nvim-telescope/telescope.nvim",
   },
   config = function()
-    vim.api.nvim_create_autocmd("FileType", {
-      pattern = "DiffviewFiles",
-      callback = function()
-        vim.opt_local.fixendofline = false
-      end,
-    })
-
     require("neogit").setup({
       disable_insert_on_commit = "auto",
       process_spinner = true,
