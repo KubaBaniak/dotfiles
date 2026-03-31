@@ -1,0 +1,34 @@
+{
+  "mcpServers": {
+    "obsidian": {
+      "args": [
+        "-y",
+        "@bitbonsai/mcpvault@latest",
+        "VAULT ABSOLUTE PATH"
+      ],
+      "autoApprove": [
+        "read_note",
+        "write_note",
+        "patch_note",
+        "list_directory",
+        "delete_note",
+        "search_notes",
+        "move_note",
+        "move_file",
+        "read_multiple_notes",
+        "update_frontmatter",
+        "get_notes_info",
+        "get_frontmatter",
+        "manage_tags",
+        "get_vault_stats",
+        "list_all_tags"
+      ],
+      "command": "npx"
+    }
+  },
+  "nativeMCPServers": {
+    "mcphub": {
+      "autoApprove": []
+    }
+  }
+}

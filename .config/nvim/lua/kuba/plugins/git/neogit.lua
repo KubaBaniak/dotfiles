@@ -7,8 +7,8 @@ return {
   },
   dependencies = {
     "nvim-lua/plenary.nvim",
-    "sindrets/diffview.nvim",
     "nvim-telescope/telescope.nvim",
+    "esmuellert/codediff.nvim",
   },
   config = function()
     require("neogit").setup({
@@ -32,8 +32,8 @@ return {
         recent = { folded = true, hidden = false },
       },
       integrations = {
-        diffview = true,
         telescope = true,
+        codediff = true,
       },
     })
   end,
