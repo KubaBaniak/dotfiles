@@ -18,6 +18,9 @@ return {
           ["obsidian"] = {
             cmd = { "npx", "-y", "@bitbonsai/mcpvault@latest", "/home/kuba41/obsidian_vault" },
           },
+          ["context7"] = {
+            cmd = { "npx", "-y", "@upstash/context7-mcp" },
+          },
         },
       },
       prompt_library = {
@@ -42,7 +45,7 @@ return {
         agent = { adapter = { name = "copilot", model = "claude-sonnet-4.6" } },
       },
       opts = {
-        log_level = "ERROR",
+        log_level = "INFO",
       },
       display = {
         chat = {
@@ -53,6 +56,10 @@ return {
           },
         },
         show_token_count = true,
+        show_model_name = true,
+        show_tool_name = true,
+        show_server_name = true,
+        show_cost = true,
       },
     })
   end,
