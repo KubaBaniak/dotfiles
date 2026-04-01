@@ -7,7 +7,6 @@ return {
     "nvim-telescope/telescope.nvim",
     "stevearc/dressing.nvim",
     "MeanderingProgrammer/render-markdown.nvim",
-    "nvim-mini/mini.diff",
     "ravitemer/mcphub.nvim",
   },
   config = function()
@@ -19,8 +18,17 @@ return {
           },
         },
       },
-      strategies = {
-        chat = { adapter = { name = "copilot", model = "claude-sonnet-4.6" } },
+      interactions = {
+        chat = {
+          adapter = { name = "copilot", model = "claude-sonnet-4.6" },
+          tools = {
+            ["web_search"] = {
+              opts = {
+                adapter = "tavily",
+              },
+            },
+          },
+        },
         inline = { adapter = { name = "copilot", model = "claude-sonnet-4.6" } },
         agent = { adapter = { name = "copilot", model = "claude-sonnet-4.6" } },
       },
@@ -44,17 +52,6 @@ return {
       opts = {
         log_level = "ERROR",
       },
-      interactions = {
-        chat = {
-          tools = {
-            ["web_search"] = {
-              opts = {
-                adapter = "tavily",
-              },
-            },
-          },
-        },
-      },
       display = {
         chat = {
           window = {
@@ -64,9 +61,6 @@ return {
           },
         },
         show_token_count = true,
-        diff = {
-          provider = "mini_diff",
-        },
       },
     })
   end,
