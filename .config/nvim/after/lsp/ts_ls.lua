@@ -15,3 +15,5 @@ vim.lsp.config("ts_ls", {
     on_dir(git_root or vim.fn.getcwd())
   end,
 })
+
+return {}

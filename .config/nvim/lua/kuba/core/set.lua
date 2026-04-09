@@ -28,15 +28,17 @@ vim.opt.updatetime = 50
 
 vim.opt.guifont = "Iosevka Nerd Font"
 
-
-
 vim.api.nvim_create_autocmd({ "FileType" }, {
-  callback = function()
+  callback = function(args)
     vim.opt.foldlevel = 99
     vim.opt.foldlevelstart = 99
     vim.opt.foldenable = true
-    local ok, parsers = pcall(require, "nvim-treesitter.parsers")
-    if ok and parsers.has_parser() then
+
+    -- In Neovim 0.12+, get_parser() no longer throws on failure -- it returns nil.
+    -- We capture both the ok status and the parser itself.
+    local ok, parser = pcall(vim.treesitter.get_parser, args.buf)
+
+    if ok and parser then
       vim.opt_local.foldmethod = "expr"
       vim.opt_local.foldexpr = "v:lua.vim.treesitter.foldexpr()"
     else

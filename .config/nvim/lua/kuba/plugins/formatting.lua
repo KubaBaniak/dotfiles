@@ -15,7 +15,7 @@ return {
     -- Constants & Settings
     -----------------------------------------------------------------------------
     local default_opts = {
-      lsp_fallback = true,
+      lsp_format = "fallback",
       async = false,
       timeout_ms = 3000, -- Increased timeout to prevent premature failures
     }
@@ -64,7 +64,7 @@ return {
           if start_line > 0 and end_line >= start_line then
             conform.format({
               async = false,
-              lsp_fallback = default_opts.lsp_fallback,
+              lsp_format = default_opts.lsp_format,
               timeout_ms = default_opts.timeout_ms,
               range = {
                 ["start"] = { start_line, 0 },
