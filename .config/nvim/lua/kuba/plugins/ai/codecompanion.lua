@@ -21,6 +21,12 @@ return {
           ["context7"] = {
             cmd = { "npx", "-y", "@upstash/context7-mcp" },
           },
+          ["memory"] = {
+            cmd = { "npx", "-y", "@modelcontextprotocol/server-memory" },
+          },
+        },
+        opts = {
+          default_servers = { "sequential-thinking", "memory" },
         },
       },
       prompt_library = {
@@ -33,6 +39,17 @@ return {
       interactions = {
         chat = {
           adapter = { name = "copilot", model = "claude-sonnet-4.6" },
+          opts = {
+            system_prompt = function(ctx)
+              local skill_path = vim.fn.stdpath("config") .. "/lua/kuba/plugins/ai/skills/karpathy-guidelines.md"
+              local file = io.open(skill_path, "r")
+              local karpathy_guidelines = file and ("\n\n" .. file:read("*a")) or ""
+              if file then
+                file:close()
+              end
+              return ctx.default_system_prompt .. karpathy_guidelines
+            end,
+          },
           tools = {
             ["web_search"] = {
               opts = {
