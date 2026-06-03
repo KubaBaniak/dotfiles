@@ -1,3 +1,15 @@
+local function load(skill_name)
+  local skills_base = vim.fn.stdpath("config") .. "/lua/kuba/plugins/ai/skills/superpowers/skills/"
+  local path = skills_base .. skill_name .. "/SKILL.md"
+  local f = io.open(path, "r")
+  if not f then
+    return "Skill not found: " .. skill_name
+  end
+  local content = f:read("*a")
+  f:close()
+  return content
+end
+
 return {
   branch_diff = function(args)
     local target = vim.fn.input("Enter target branch/commit to compare with HEAD: ")
@@ -162,5 +174,26 @@ return {
       first_commit,
       end_boundary
     )
+  end,
+  brainstorming = function()
+    return load("brainstorming")
+  end,
+  writing_plans = function()
+    return load("writing-plans")
+  end,
+  tdd = function()
+    return load("test-driven-development")
+  end,
+  verification = function()
+    return load("verification-before-completion")
+  end,
+  debugging = function()
+    return load("systematic-debugging")
+  end,
+  code_review = function()
+    return load("requesting-code-review")
+  end,
+  finishing = function()
+    return load("finishing-a-development-branch")
   end,
 }

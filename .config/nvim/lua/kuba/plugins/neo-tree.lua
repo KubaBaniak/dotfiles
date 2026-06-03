@@ -44,6 +44,7 @@ return {
               },
             },
             ["w"] = "open_with_window_picker",
+            ["S"] = "open_split",
           },
         },
       })
