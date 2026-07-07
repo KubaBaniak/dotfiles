@@ -15,12 +15,12 @@ return {
     hover = {
       max_width = 0.7,
       max_height = 0.4,
-      open_link = "gx",   -- open URLs inside hover with gx
+      open_link = "gx", -- open URLs inside hover with gx
       open_cmd = "!xdg-open",
     },
     definition = {
-      width = 0.6,
-      height = 0.4,
+      width = 0.8,
+      height = 0.5,
     },
     lightbulb = {
       enable = false, -- turn on if you want a 💡 sign for code actions

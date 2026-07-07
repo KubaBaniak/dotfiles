@@ -118,3 +118,13 @@ export PATH=$PATH:/usr/local/go/bin
 # Dotfiles
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
+export JAVA_HOME="$HOME/.jdks/corretto-15.0.2"
+export PATH="$JAVA_HOME/bin:$PATH"
+
+# pnpm
+export PNPM_HOME="/home/kuba41/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end

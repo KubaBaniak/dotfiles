@@ -14,6 +14,12 @@ return {
     memory = {
       cmd = { "npx", "-y", "@modelcontextprotocol/server-memory" },
     },
+    playwright = {
+      cmd = { "npx", "-y", "@playwright/mcp@latest" },
+    },
+    ["ui5-wcr"] = {
+      cmd = { "npx", "-y", "@ui5/webcomponents-react-mcp@latest" },
+    },
   },
   opts = {
     default_servers = { "sequential-thinking", "memory" },

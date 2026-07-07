@@ -20,8 +20,8 @@ vim.lsp.config("ts_ls", {
       -- prefer `import type` for type-only imports
       preferTypeOnlyAutoImports = true,
 
-      -- use relative imports in auto-import suggestions
-      importModuleSpecifierPreference = "relative",
+      -- prefer path-alias imports (~/...) over relative imports
+      importModuleSpecifierPreference = "non-relative",
 
       -- include snippet completions
       includeCompletionsWithSnippetText = true,

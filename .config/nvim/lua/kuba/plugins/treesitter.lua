@@ -18,7 +18,9 @@ return {
       "javascript",
       "tsx",
       "html",
-      "yaml"
+      "yaml",
+      "markdown",
+      "markdown_inline"
     )
 
     -- Enable treesitter features per filetype
