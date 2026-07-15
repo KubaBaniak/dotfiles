@@ -3,7 +3,6 @@ return {
   dependencies = {
     "nvim-lua/plenary.nvim",
     { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-    "nvim-telescope/telescope-ui-select.nvim",
   },
   config = function()
     local telescope = require("telescope")
@@ -27,15 +26,9 @@ return {
           },
         },
       },
-      extensions = {
-        ["ui-select"] = {
-          require("telescope.themes").get_dropdown(),
-        },
-      },
     })
 
     telescope.load_extension("fzf")
-    telescope.load_extension("ui-select")
 
     -- File finders
     vim.keymap.set("n", "<C-p>", builtin.git_files, { desc = "Search Git Files" })

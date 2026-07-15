@@ -15,9 +15,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
     opts.desc = "Show LSP definition"
     vim.keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts) -- show lsp definition
 
-    opts.desc = "Peek definition (stay in current file)"
-    vim.keymap.set("n", "gp", "<cmd>Lspsaga peek_definition<CR>", opts)
-
     opts.desc = "Show LSP implementations"
     vim.keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts) -- show lsp implementations
 
@@ -47,10 +44,18 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end, opts) -- jump to next diagnostic in buffer
 
     opts.desc = "Show documentation for what is under cursor"
-    vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", opts) -- show documentation for what is under cursor
+    vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+
+    if vim.lsp.inlay_hint and vim.lsp.inlay_hint.enable then
+      opts.desc = "Toggle inlay hints"
+      vim.keymap.set("n", "<leader>th", function()
+        local enabled = vim.lsp.inlay_hint.is_enabled({ bufnr = ev.buf })
+        vim.lsp.inlay_hint.enable(not enabled, { bufnr = ev.buf })
+      end, opts)
+    end
 
     opts.desc = "Restart LSP"
-    vim.keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
+    vim.keymap.set("n", "<leader>rs", "<cmd>LspRestart<CR>", opts) -- mapping to restart lsp if necessary
   end,
 })
 

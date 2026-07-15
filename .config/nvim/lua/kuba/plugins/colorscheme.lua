@@ -9,13 +9,12 @@ local catppuccin = {
       flavour = "mocha", -- latte, frappe, macchiato, mocha
       transparent_background = false,
       -- `default_integrations = true` (the default) already enables these for
-      -- plugins you use: blink_cmp, flash, gitsigns, mini (mini.diff), neogit,
+      -- plugins you use: blink_cmp, flash, gitsigns, neogit,
       -- neotree, render_markdown, telescope, treesitter (native), + more.
       -- Below are the integrations for plugins you have that are OFF by default.
       integrations = {
         gitgraph = true, -- isakbm/gitgraph.nvim
         harpoon = true, -- ThePrimeagen/harpoon
-        lsp_saga = true, -- nvimdev/lspsaga.nvim
         lsp_trouble = true, -- folke/trouble.nvim
         mason = true, -- mason-org/mason(-lspconfig).nvim
         nvim_surround = true, -- kylechui/nvim-surround

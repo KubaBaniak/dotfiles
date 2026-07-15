@@ -8,33 +8,50 @@ return {
     -- Highlighting and indentation are handled via FileType autocmds below.
     require("nvim-treesitter").setup()
 
-    -- Install parsers (replaces the old ensure_installed option)
-    require("nvim-treesitter.install").install(
+    local parsers = {
       "c",
+      "css",
+      "html",
+      "javascript",
+      "json",
       "lua",
+      "markdown",
+      "markdown_inline",
+      "tsx",
+      "typescript",
       "vim",
       "vimdoc",
-      "typescript",
-      "javascript",
-      "tsx",
-      "html",
       "yaml",
-      "markdown",
-      "markdown_inline"
-    )
+    }
 
-    -- Enable treesitter features per filetype
+    -- The main branch accepts one language or a list, not varargs.
+    require("nvim-treesitter").install(parsers)
+
     vim.api.nvim_create_autocmd("FileType", {
-      pattern = { "c", "lua", "vim", "typescript", "javascript", "tsx", "html", "yaml" },
+      pattern = {
+        "c",
+        "css",
+        "html",
+        "javascript",
+        "javascriptreact",
+        "json",
+        "lua",
+        "markdown",
+        "typescript",
+        "typescriptreact",
+        "vim",
+        "yaml",
+      },
       callback = function()
-        -- Built-in Neovim treesitter highlighting
-        local ok = pcall(vim.treesitter.start)
-        if not ok then
+        if not pcall(vim.treesitter.start) then
           return
         end
 
-        -- Treesitter-based indentation (experimental)
-        vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        -- Treesitter-based indentation is still experimental. Markdown keeps
+        -- its runtime indentation because Tree-sitter does not provide it.
+        if vim.bo.filetype ~= "markdown" then
+          vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        end
       end,
     })
   end,

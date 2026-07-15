@@ -11,6 +11,7 @@ vim.opt.fixendofline = true
 vim.opt.smartindent = true
 
 vim.opt.wrap = false
+vim.opt.breakindent = true
 
 vim.opt.swapfile = false
 vim.opt.backup = false
@@ -21,18 +22,28 @@ vim.opt.hlsearch = false
 vim.opt.incsearch = true
 
 vim.opt.scrolloff = 8
+vim.opt.sidescrolloff = 8
 vim.opt.signcolumn = "yes"
 vim.opt.isfname:append("@-@")
 
-vim.opt.updatetime = 50
+vim.opt.confirm = true
+vim.opt.cursorline = true
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+vim.opt.splitbelow = true
+vim.opt.splitright = true
+vim.opt.splitkeep = "screen"
+vim.opt.winborder = "rounded"
+
+vim.opt.updatetime = 200
 
 vim.opt.guifont = "Iosevka Nerd Font"
 
 vim.api.nvim_create_autocmd({ "FileType" }, {
   callback = function(args)
-    vim.opt.foldlevel = 99
-    vim.opt.foldlevelstart = 99
-    vim.opt.foldenable = true
+    vim.opt_local.foldlevel = 99
+    vim.opt_local.foldlevelstart = 99
+    vim.opt_local.foldenable = true
 
     -- In Neovim 0.12+, get_parser() no longer throws on failure -- it returns nil.
     -- We capture both the ok status and the parser itself.

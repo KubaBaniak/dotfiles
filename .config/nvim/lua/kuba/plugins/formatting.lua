@@ -26,14 +26,12 @@ return {
       javascriptreact = { "prettier" },
       typescriptreact = { "prettier" },
       -- Fixed: 'go' is the correct filetype, and use standard tools or fallback to LSP
-      go = { "goimports", "gofumpt" },
       css = { "prettier" },
       html = { "prettier" },
       json = { "prettier" },
       yaml = { "prettier" },
       markdown = { "prettier" },
       lua = { "stylua" },
-      python = { "isort", "black" },
     }
 
     -----------------------------------------------------------------------------
