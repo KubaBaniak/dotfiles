@@ -16,6 +16,7 @@ return {
       { "<leader>t", group = "Toggle" },
       { "<leader>x", group = "Diagnostics/Lists" },
       { "<leader>w", proxy = "<C-w>", group = "Windows" },
+      { "<leader>R", group = "REST" },
     },
   },
   keys = {

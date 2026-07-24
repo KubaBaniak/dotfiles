@@ -37,7 +37,11 @@ vim.opt.winborder = "rounded"
 
 vim.opt.updatetime = 200
 
+-- Required for kulala.nvim session restore (saves/restores global variables across sessions)
+vim.opt.sessionoptions:append("globals")
+
 vim.opt.guifont = "Iosevka Nerd Font"
+vim.opt.termguicolors = true
 
 vim.api.nvim_create_autocmd({ "FileType" }, {
   callback = function(args)

@@ -4,13 +4,19 @@ local utils = require("kuba.plugins.ai.codecompanion.workflows.skills")
 -- Superpowers Debug Workflow: Systematic debugging → verification
 return {
   ["Superpowers Debug Workflow"] = {
-    strategy = "workflow",
+interaction = "chat",
     description = "Systematyczne debugowanie → weryfikacja",
     opts = {
       index = 22,
       is_default = false,
-      short_name = "sp_debug",
+      is_workflow = true,
+      alias = "sp_debug", -- run with :CodeCompanion /sp_debug
+      intro_message = "Superpowers Debug Workflow: opisz buga pod promptem i wyślij (<CR> w trybie normalnym).",
     },
+    -- Agent tools so the LLM can read code, edit files and run tests while debugging
+    tools = { "agent" },
+    -- Default MCP servers (structured reasoning + knowledge graph memory)
+    mcp_servers = { "sequential-thinking", "memory" },
     prompts = {
       {
         {
@@ -22,6 +28,7 @@ return {
           },
           content = function()
             return utils.debugging()
+              .. "\n\n---\n👇 **OPIS BUGA** (wpisz objawy, kroki reprodukcji i oczekiwane zachowanie poniżej tej linii, potem wyślij):\n\n"
           end,
         },
       },

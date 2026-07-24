@@ -7,6 +7,7 @@ return {
     "nvim-telescope/telescope.nvim",
     "stevearc/dressing.nvim",
     "MeanderingProgrammer/render-markdown.nvim",
+    "ravitemer/codecompanion-history.nvim",
   },
   opts = function()
     return require("kuba.plugins.ai.codecompanion.opts")

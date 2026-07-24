@@ -7,13 +7,19 @@ local utils = require("kuba.plugins.ai.codecompanion.workflows.skills")
 -- To run a phase on a different model, pass a model to constants.copilot_adapter().
 return {
   ["Superpowers Feature Workflow"] = {
-    strategy = "workflow",
+interaction = "chat",
     description = "Brainstorm → plan → TDD → weryfikacja",
     opts = {
       index = 21,
       is_default = false,
-      short_name = "sp_feature",
+      is_workflow = true,
+      alias = "sp_feature", -- run with :CodeCompanion /sp_feature
+      intro_message = "Superpowers Feature Workflow: opisz feature pod promptem fazy 1 i wyślij (<CR> w trybie normalnym). Kolejne fazy zatwierdzasz ręcznie.",
     },
+    -- Full agent tool group so TDD/verify phases can edit files and run tests
+    tools = { "agent" },
+    -- MCP servers to auto-start with this workflow (defaults + context7 for docs lookup)
+    mcp_servers = { "sequential-thinking", "memory", "context7" },
     prompts = {
       {
         {
@@ -33,7 +39,9 @@ return {
             adapter = constants.copilot_adapter(),
           },
           content = function()
-            return "Faza 1 (Brainstorm): Zbadaj kontekst projektu i zapytaj mnie o zadanie.\n\n" .. utils.brainstorming()
+            return "Faza 1 (Brainstorm): Zbadaj kontekst projektu i zapytaj mnie o zadanie.\n\n"
+              .. utils.brainstorming()
+              .. "\n\n---\n👇 **MOJE ZADANIE** (wpisz opis feature'a poniżej tej linii i wyślij wiadomość):\n\n"
           end,
         },
       },

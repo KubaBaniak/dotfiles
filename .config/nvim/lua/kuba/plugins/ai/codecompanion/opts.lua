@@ -7,4 +7,5 @@ return {
     log_level = "INFO",
   },
   display = require("kuba.plugins.ai.codecompanion.display"),
+  extensions = require("kuba.plugins.ai.codecompanion.extensions"),
 }

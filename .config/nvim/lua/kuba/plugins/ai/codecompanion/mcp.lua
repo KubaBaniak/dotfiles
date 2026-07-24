@@ -22,6 +22,6 @@ return {
     },
   },
   opts = {
-    default_servers = { "sequential-thinking", "memory" },
+    default_servers = { "memory" },
   },
 }
