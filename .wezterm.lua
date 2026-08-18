@@ -127,7 +127,7 @@ config.mouse_bindings = {
 }
 
 -- === DOMAIN ===
-config.default_domain = 'WSL:Ubuntu-24.04'
+config.default_domain = 'WSL:Ubuntu-26.04'
 
 -- === BACKGROUND (uncomment to enable) ===
 -- config.background = {
