@@ -33,6 +33,8 @@ return {
   },
   action_palette = {
     provider = "default",
+    width = 0.8,
+    height = 0.75,
     opts = {
       show_preset_actions = true,
       show_preset_prompts = true,
