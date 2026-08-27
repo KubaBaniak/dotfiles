@@ -1,10 +1,13 @@
 return {
   "nvim-lualine/lualine.nvim",
+  event = "VeryLazy",
   dependencies = { "nvim-tree/nvim-web-devicons" },
   config = function()
     require("lualine").setup({
       options = {
-        theme = "catppuccin-mocha",
+        -- "auto" follows whatever colorscheme is active instead of being
+        -- pinned to catppuccin-mocha.
+        theme = "auto",
         component_separators = { left = "", right = "" },
         section_separators = { left = "", right = "" },
         globalstatus = true,
@@ -62,7 +65,8 @@ return {
               end
               return " " .. table.concat(names, ", ")
             end,
-            color = { fg = "#cba6f7" },
+            -- Follow the colorscheme instead of a hardcoded hex value.
+            color = { fg = nil },
           },
           "encoding",
           "fileformat",

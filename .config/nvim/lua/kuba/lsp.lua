@@ -1,76 +1,140 @@
-vim.api.nvim_create_autocmd("LspAttach", {
-  group = vim.api.nvim_create_augroup("UserLspConfig", {}),
-  callback = function(ev)
-    -- Buffer local mappings.
-    -- See `:help vim.lsp.*` for documentation on any of the below functions
-    local opts = { buffer = ev.buf, silent = true }
-
-    -- set keybinds
-    opts.desc = "Show LSP references"
-    vim.keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", opts) -- show definition, references
-
-    opts.desc = "Go to declaration"
-    vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts) -- go to declaration
-
-    opts.desc = "Show LSP definition"
-    vim.keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts) -- show lsp definition
-
-    opts.desc = "Show LSP implementations"
-    vim.keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts) -- show lsp implementations
-
-    opts.desc = "Show LSP type definitions"
-    vim.keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts) -- show lsp type definitions
-
-    opts.desc = "See available code actions"
-    vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts) -- see available code actions, in visual mode will apply to selection
-
-    opts.desc = "Smart rename"
-    vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts) -- smart rename
-
-    opts.desc = "Show buffer diagnostics"
-    vim.keymap.set("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", opts) -- show  diagnostics for file
-
-    opts.desc = "Show line diagnostics"
-    vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts) -- show diagnostics for line
-
-    opts.desc = "Go to previous diagnostic"
-    vim.keymap.set("n", "[d", function()
-      vim.diagnostic.jump({ count = -1, float = true })
-    end, opts) -- jump to previous diagnostic in buffer
-    --
-    opts.desc = "Go to next diagnostic"
-    vim.keymap.set("n", "]d", function()
-      vim.diagnostic.jump({ count = 1, float = true })
-    end, opts) -- jump to next diagnostic in buffer
-
-    opts.desc = "Show documentation for what is under cursor"
-    vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-
-    if vim.lsp.inlay_hint and vim.lsp.inlay_hint.enable then
-      opts.desc = "Toggle inlay hints"
-      vim.keymap.set("n", "<leader>th", function()
-        local enabled = vim.lsp.inlay_hint.is_enabled({ bufnr = ev.buf })
-        vim.lsp.inlay_hint.enable(not enabled, { bufnr = ev.buf })
-      end, opts)
-    end
-
-    opts.desc = "Restart LSP"
-    vim.keymap.set("n", "<leader>rs", "<cmd>LspRestart<CR>", opts) -- mapping to restart lsp if necessary
-  end,
-})
-
+-----------------------------------------------------------------------------
+-- Diagnostics
+-----------------------------------------------------------------------------
 local severity = vim.diagnostic.severity
 
 vim.diagnostic.config({
   update_in_insert = false,
-  virtual_text = true,
-  float = { border = "rounded" },
+  -- Without severity_sort a HINT can mask an ERROR on the same line.
+  severity_sort = true,
+  virtual_text = {
+    spacing = 2,
+    source = "if_many",
+    prefix = "●",
+  },
+  -- 0.11+: much richer multi-line diagnostics. Off by default, toggled with <leader>tl.
+  virtual_lines = false,
+  float = {
+    source = "if_many",
+    -- border comes from the global 'winborder' option now
+  },
   signs = {
     text = {
-      [severity.ERROR] = " ",
-      [severity.WARN] = " ",
+      [severity.ERROR] = "󰅙 ",
+      [severity.WARN] = "󰀦 ",
       [severity.HINT] = "󰠠 ",
-      [severity.INFO] = " ",
+      [severity.INFO] = "󰋽 ",
+    },
+    numhl = {
+      [severity.ERROR] = "DiagnosticSignError",
+      [severity.WARN] = "DiagnosticSignWarn",
+      [severity.HINT] = "DiagnosticSignHint",
+      [severity.INFO] = "DiagnosticSignInfo",
     },
   },
+})
+
+-----------------------------------------------------------------------------
+-- LspAttach
+-----------------------------------------------------------------------------
+vim.api.nvim_create_autocmd("LspAttach", {
+  group = vim.api.nvim_create_augroup("kuba_lsp_attach", { clear = true }),
+  callback = function(ev)
+    local client = vim.lsp.get_client_by_id(ev.data.client_id)
+    if not client then
+      return
+    end
+
+    local function map(mode, lhs, rhs, desc)
+      vim.keymap.set(mode, lhs, rhs, { buffer = ev.buf, silent = true, desc = desc })
+    end
+
+    local methods = vim.lsp.protocol.Methods
+
+    -- NOTE: Neovim 0.11 already provides these by default, so they are NOT remapped here:
+    --   K    -> vim.lsp.buf.hover        grn -> rename
+    --   gra  -> code action              grr -> references
+    --   gri  -> implementation           gO  -> document symbols
+    --   <C-s> (insert) -> signature help
+    -- The mappings below are the Telescope-powered / extra ones.
+
+    map("n", "gd", "<cmd>Telescope lsp_definitions<CR>", "Go to definition")
+    map("n", "gD", vim.lsp.buf.declaration, "Go to declaration")
+    map("n", "gR", "<cmd>Telescope lsp_references<CR>", "Show references")
+    map("n", "gI", "<cmd>Telescope lsp_implementations<CR>", "Show implementations")
+    map("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", "Show type definitions")
+    -- Document symbols are available via the built-in `gO`; this is the workspace-wide picker.
+    map("n", "<leader>pS", "<cmd>Telescope lsp_dynamic_workspace_symbols<CR>", "Workspace symbols")
+
+    map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, "Code action")
+    map("n", "<leader>rn", vim.lsp.buf.rename, "Rename symbol")
+    map("n", "<leader>rs", "<cmd>LspRestart<CR>", "Restart LSP")
+
+    -- Diagnostics (float = true is why these override the 0.11 defaults)
+    map("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", "Buffer diagnostics")
+    map("n", "<leader>d", vim.diagnostic.open_float, "Line diagnostics")
+    map("n", "[d", function()
+      vim.diagnostic.jump({ count = -1, float = true })
+    end, "Previous diagnostic")
+    map("n", "]d", function()
+      vim.diagnostic.jump({ count = 1, float = true })
+    end, "Next diagnostic")
+
+    -- Toggle 0.11 virtual_lines diagnostics
+    map("n", "<leader>tl", function()
+      local cfg = vim.diagnostic.config()
+      vim.diagnostic.config({
+        virtual_lines = not cfg.virtual_lines,
+        virtual_text = cfg.virtual_lines and { spacing = 2, source = "if_many", prefix = "●" } or false,
+      })
+    end, "Toggle diagnostic virtual lines")
+
+    -------------------------------------------------------------------------
+    -- Capability-gated features
+    -------------------------------------------------------------------------
+
+    -- Inlay hints: enable by default, not just on manual toggle.
+    if client:supports_method(methods.textDocument_inlayHint) then
+      vim.lsp.inlay_hint.enable(true, { bufnr = ev.buf })
+      map("n", "<leader>th", function()
+        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = ev.buf }), { bufnr = ev.buf })
+      end, "Toggle inlay hints")
+    end
+
+    -- Highlight other references to the symbol under the cursor (uses 'updatetime').
+    if client:supports_method(methods.textDocument_documentHighlight) then
+      local hl_group = vim.api.nvim_create_augroup("kuba_lsp_highlight", { clear = false })
+      vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+        group = hl_group,
+        buffer = ev.buf,
+        callback = vim.lsp.buf.document_highlight,
+      })
+      vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+        group = hl_group,
+        buffer = ev.buf,
+        callback = vim.lsp.buf.clear_references,
+      })
+    end
+
+    -- 0.12: inline colour swatches (great with tailwindcss).
+    if vim.lsp.document_color and client:supports_method(methods.textDocument_documentColor) then
+      vim.lsp.document_color.enable(true, { bufnr = ev.buf })
+    end
+
+    -- 0.12: native paired-tag renaming for JSX/HTML.
+    if vim.lsp.linked_editing_range and client:supports_method(methods.textDocument_linkedEditingRange) then
+      vim.lsp.linked_editing_range.enable(true, { bufnr = ev.buf })
+    end
+  end,
+})
+
+-----------------------------------------------------------------------------
+-- Detach cleanup
+-----------------------------------------------------------------------------
+vim.api.nvim_create_autocmd("LspDetach", {
+  group = vim.api.nvim_create_augroup("kuba_lsp_detach", { clear = true }),
+  callback = function(ev)
+    pcall(vim.api.nvim_clear_autocmds, { group = "kuba_lsp_highlight", buffer = ev.buf })
+    pcall(vim.lsp.buf.clear_references)
+  end,
 })

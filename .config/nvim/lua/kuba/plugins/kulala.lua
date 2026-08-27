@@ -5,48 +5,64 @@ return {
   keys = {
     {
       "<leader>Rs",
-      function() require("kulala").run() end,
+      function()
+        require("kulala").run()
+      end,
       ft = { "http", "rest" },
       desc = "Send request",
     },
     {
       "<leader>Ra",
-      function() require("kulala").run_all() end,
+      function()
+        require("kulala").run_all()
+      end,
       ft = { "http", "rest" },
       desc = "Send all requests",
     },
     {
       "<leader>Rb",
-      function() require("kulala").scratchpad() end,
+      function()
+        require("kulala").scratchpad()
+      end,
       desc = "Open scratchpad",
     },
     {
       "<leader>Rr",
-      function() require("kulala").replay() end,
+      function()
+        require("kulala").replay()
+      end,
       ft = { "http", "rest" },
       desc = "Replay last request",
     },
     {
       "<leader>Rc",
-      function() require("kulala").copy() end,
+      function()
+        require("kulala").copy()
+      end,
       ft = { "http", "rest" },
       desc = "Copy as cURL",
     },
     {
       "<leader>Ri",
-      function() require("kulala").inspect() end,
+      function()
+        require("kulala").inspect()
+      end,
       ft = { "http", "rest" },
       desc = "Inspect variables",
     },
     {
       "<leader>Re",
-      function() require("kulala").set_selected_env() end,
+      function()
+        require("kulala").set_selected_env()
+      end,
       ft = { "http", "rest" },
       desc = "Select environment",
     },
     {
       "<leader>Rq",
-      function() require("kulala").close() end,
+      function()
+        require("kulala").close()
+      end,
       desc = "Close response window",
     },
   },

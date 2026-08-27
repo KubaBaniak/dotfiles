@@ -3,10 +3,10 @@ return {
   lazy = true,
   cmd = "CodeDiff",
   keys = {
-    { "<leader>gd", "<cmd>CodeDiff<cr>",              desc = "Diff working tree (explorer)" },
+    { "<leader>gd", "<cmd>CodeDiff<cr>", desc = "Diff working tree (explorer)" },
     { "<leader>gh", "<cmd>CodeDiff history HEAD~50 %<cr>", desc = "File history (current file)" },
-    { "<leader>gH", "<cmd>CodeDiff history<cr>",      desc = "File history (repo)" },
-    { "<leader>gx", "<cmd>tabclose<cr>",              desc = "Close CodeDiff tab" },
+    { "<leader>gH", "<cmd>CodeDiff history<cr>", desc = "File history (repo)" },
+    { "<leader>gx", "<cmd>tabclose<cr>", desc = "Close CodeDiff tab" },
   },
   opts = {
     diff = {

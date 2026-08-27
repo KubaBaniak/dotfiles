@@ -1,70 +1,99 @@
 return {
   "lewis6991/gitsigns.nvim",
-  event = "BufReadPre",
+  event = { "BufReadPre", "BufNewFile" },
   opts = {
     signs = {
-      add          = { text = "▎" },
-      change       = { text = "▎" },
-      delete       = { text = "" },
-      topdelete    = { text = "" },
+      add = { text = "▎" },
+      change = { text = "▎" },
+      delete = { text = "" },
+      topdelete = { text = "" },
       changedelete = { text = "▎" },
-      untracked    = { text = "▎" },
+      untracked = { text = "▎" },
     },
     current_line_blame = false,
+    current_line_blame_opts = {
+      delay = 300,
+      virt_text_pos = "eol",
+    },
     on_attach = function(bufnr)
       local gs = require("gitsigns")
-      local opts = { buffer = bufnr, silent = true }
 
-      -- Hunk navigation
-      opts.desc = "Next git hunk"
-      vim.keymap.set("n", "]h", function()
+      local function map(mode, lhs, rhs, desc)
+        vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, silent = true, desc = desc })
+      end
+
+      ---------------------------------------------------------------------
+      -- Navigation
+      ---------------------------------------------------------------------
+      map("n", "]h", function()
         if vim.wo.diff then
           vim.cmd.normal({ "]c", bang = true })
         else
           gs.nav_hunk("next")
         end
-      end, opts)
+      end, "Next git hunk")
 
-      opts.desc = "Prev git hunk"
-      vim.keymap.set("n", "[h", function()
+      map("n", "[h", function()
         if vim.wo.diff then
           vim.cmd.normal({ "[c", bang = true })
         else
           gs.nav_hunk("prev")
         end
-      end, opts)
+      end, "Prev git hunk")
 
+      ---------------------------------------------------------------------
       -- Staging
-      opts.desc = "Stage hunk"
-      vim.keymap.set({ "n", "v" }, "<leader>gs", gs.stage_hunk, opts)
+      ---------------------------------------------------------------------
+      -- stage_hunk() now TOGGLES staging on an already-staged hunk.
+      -- `undo_stage_hunk` was removed upstream.
+      map("n", "<leader>gs", gs.stage_hunk, "Stage hunk")
+      map("n", "<leader>gr", gs.reset_hunk, "Reset hunk")
 
-      opts.desc = "Reset hunk"
-      vim.keymap.set({ "n", "v" }, "<leader>gr", gs.reset_hunk, opts)
+      -- Visual mode REQUIRES an explicit line range, otherwise it silently
+      -- operates on the whole hunk under the cursor instead of the selection.
+      map("v", "<leader>gs", function()
+        gs.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
+      end, "Stage selected lines")
 
-      opts.desc = "Stage buffer"
-      vim.keymap.set("n", "<leader>gS", gs.stage_buffer, opts)
+      map("v", "<leader>gr", function()
+        gs.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
+      end, "Reset selected lines")
 
-      opts.desc = "Undo stage hunk"
-      vim.keymap.set("n", "<leader>gu", gs.undo_stage_hunk, opts)
+      map("n", "<leader>gS", gs.stage_buffer, "Stage buffer")
+      map("n", "<leader>gR", gs.reset_buffer, "Reset buffer")
+      -- Replacement for the old undo_stage_hunk: unstage the whole file.
+      map("n", "<leader>gu", gs.reset_buffer_index, "Unstage buffer")
 
-      opts.desc = "Reset buffer"
-      vim.keymap.set("n", "<leader>gR", gs.reset_buffer, opts)
+      ---------------------------------------------------------------------
+      -- Preview / blame / diff
+      ---------------------------------------------------------------------
+      map("n", "<leader>gp", gs.preview_hunk, "Preview hunk")
+      map("n", "<leader>gi", gs.preview_hunk_inline, "Preview hunk inline")
+      map("n", "<leader>gb", gs.toggle_current_line_blame, "Toggle line blame")
+      map("n", "<leader>gB", function()
+        gs.blame_line({ full = true })
+      end, "Blame line (full)")
+      map("n", "<leader>gw", gs.toggle_word_diff, "Toggle word diff")
 
-      -- Preview / blame
-      opts.desc = "Preview hunk"
-      vim.keymap.set("n", "<leader>gp", gs.preview_hunk, opts)
+      map("n", "<leader>gf", gs.diffthis, "Diff this file")
+      map("n", "<leader>gF", function()
+        gs.diffthis("~")
+      end, "Diff this file against ~")
 
-      opts.desc = "Toggle line blame"
-      vim.keymap.set("n", "<leader>gb", gs.toggle_current_line_blame, opts)
+      ---------------------------------------------------------------------
+      -- Quickfix
+      ---------------------------------------------------------------------
+      map("n", "<leader>gq", gs.setqflist, "Hunks -> quickfix (buffer)")
+      map("n", "<leader>gQ", function()
+        gs.setqflist("all")
+      end, "Hunks -> quickfix (repo)")
 
-      opts.desc = "Blame line (full)"
-      vim.keymap.set("n", "<leader>gB", function() gs.blame_line({ full = true }) end, opts)
-
-      opts.desc = "Toggle deleted lines"
-      vim.keymap.set("n", "<leader>gD", gs.toggle_deleted, opts)
-
-      -- Text object: select hunk
-      vim.keymap.set({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", { buffer = bufnr, desc = "Select git hunk" })
+      ---------------------------------------------------------------------
+      -- Text object
+      ---------------------------------------------------------------------
+      -- Docs now use the Lua function directly rather than the legacy
+      -- `:<C-U>Gitsigns select_hunk<CR>` cmdline form.
+      map({ "o", "x" }, "ih", gs.select_hunk, "Select git hunk")
     end,
   },
 }

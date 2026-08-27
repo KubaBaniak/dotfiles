@@ -25,9 +25,27 @@ require("lazy").setup({
     { import = "kuba.plugins.ai" },
     { import = "kuba.plugins.git" },
   },
-  -- Configure any other settings here. See the documentation for more details.
   -- colorscheme that will be used when installing plugins.
-  install = { colorscheme = { "habamax" } },
-  -- automatically check for plugin updates
-  checker = { enabled = true },
+  install = { colorscheme = { "catppuccin-mocha", "habamax" } },
+
+  -- Check for updates in the background, but don't interrupt with popups.
+  checker = { enabled = true, notify = false, frequency = 86400 },
+  change_detection = { enabled = true, notify = false },
+
+  ui = { border = "rounded" },
+
+  performance = {
+    rtp = {
+      -- Disable unused built-in plugins to cut startup time.
+      disabled_plugins = {
+        "gzip",
+        "netrwPlugin", -- neo-tree hijacks directory buffers instead
+        "rplugin",
+        "tarPlugin",
+        "tohtml",
+        "tutor",
+        "zipPlugin",
+      },
+    },
+  },
 })

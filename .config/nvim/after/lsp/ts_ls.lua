@@ -1,8 +1,10 @@
-vim.lsp.config("ts_ls", {
+-- Neovim 0.11+ convention: return a table, don't call vim.lsp.config().
+return {
   root_dir = function(bufnr, on_dir)
     local root = vim.fs.root(bufnr, {
       "tsconfig.json",
       "tsconfig.base.json",
+      "jsconfig.json",
       "package.json",
     })
 
@@ -10,9 +12,8 @@ vim.lsp.config("ts_ls", {
       return on_dir(root)
     end
 
-    -- fallback, żeby LSP zawsze się uruchomił
-    local git_root = vim.fs.root(bufnr, { ".git" })
-    on_dir(git_root or vim.fn.getcwd())
+    -- Fallback so the LSP always starts, even outside a project.
+    on_dir(vim.fs.root(bufnr, { ".git" }) or vim.fn.getcwd())
   end,
 
   init_options = {
@@ -23,22 +24,23 @@ vim.lsp.config("ts_ls", {
       -- prefer path-alias imports (~/...) over relative imports
       importModuleSpecifierPreference = "non-relative",
 
-      -- include snippet completions
       includeCompletionsWithSnippetText = true,
-
-      -- auto-import from module exports
       includeCompletionsForModuleExports = true,
 
-      -- inlay hints
-      includeInlayParameterNameHints = "all",
+      -- Inlay hints. These are inert unless the client enables them --
+      -- lsp.lua now calls vim.lsp.inlay_hint.enable(true) on attach.
+      includeInlayParameterNameHints = "literals",
       includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-      includeInlayFunctionParameterTypeHints = true,
-      includeInlayVariableTypeHints = true,
+      includeInlayFunctionParameterTypeHints = false,
+      includeInlayVariableTypeHints = false,
       includeInlayVariableTypeHintsWhenTypeMatchesName = false,
-      includeInlayPropertyDeclarationTypeHints = true,
+      includeInlayPropertyDeclarationTypeHints = false,
       includeInlayFunctionLikeReturnTypeHints = true,
       includeInlayEnumMemberValueHints = true,
     },
+
+    -- NOTE: this only applies to files NOT covered by a tsconfig.json.
+    -- Inside a real project your tsconfig always wins.
     implicitProjectConfiguration = {
       strict = true,
       strictNullChecks = true,
@@ -51,6 +53,4 @@ vim.lsp.config("ts_ls", {
       exactOptionalPropertyTypes = true,
     },
   },
-})
-
-return {}
+}
