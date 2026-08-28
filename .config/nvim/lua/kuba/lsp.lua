@@ -93,9 +93,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
     -- Capability-gated features
     -------------------------------------------------------------------------
 
-    -- Inlay hints: enable by default, not just on manual toggle.
+    -- Inlay hints: disabled by default, not just on manual toggle.
     if client:supports_method(methods.textDocument_inlayHint) then
-      vim.lsp.inlay_hint.enable(true, { bufnr = ev.buf })
+      vim.lsp.inlay_hint.enable(false, { bufnr = ev.buf })
       map("n", "<leader>th", function()
         vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = ev.buf }), { bufnr = ev.buf })
       end, "Toggle inlay hints")

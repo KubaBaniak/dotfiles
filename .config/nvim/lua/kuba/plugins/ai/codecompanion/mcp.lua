@@ -1,25 +1,5 @@
 local constants = require("kuba.plugins.ai.codecompanion.constants")
-
-local function secret(name)
-  local secrets_file = vim.fn.expand("~/.secrets")
-
-  if vim.fn.filereadable(secrets_file) == 1 then
-    for _, line in ipairs(vim.fn.readfile(secrets_file)) do
-      local key, value = line:match("^%s*(%u[%u%d_]*)%s*=%s*(.-)%s*$")
-
-      if key == name then
-        local quote = value:sub(1, 1)
-        if (quote == '"' or quote == "'") and value:sub(-1) == quote then
-          value = value:sub(2, -2)
-        end
-
-        return value
-      end
-    end
-  end
-
-  return os.getenv(name)
-end
+local secret = require("kuba.secrets")
 
 local context7_api_key = secret("CONTEXT7_API_KEY")
 
