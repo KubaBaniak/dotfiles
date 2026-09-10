@@ -22,6 +22,17 @@ return {
     -- launch opens a browser to complete the Atlassian OAuth 2.1 sign-in.
     atlassian = {
       cmd = { "npx", "-y", "mcp-remote", "https://mcp.atlassian.com/v1/mcp/authv2" },
+      tool_overrides = {
+        createJiraIssue = {
+          enabled = false,
+        },
+        editJiraIssue = {
+          enabled = false,
+        },
+        transitionJiraIssue = {
+          enabled = false,
+        },
+      },
     },
     playwright = {
       cmd = { "npx", "-y", "@playwright/mcp@latest" },

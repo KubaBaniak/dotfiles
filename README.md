@@ -44,8 +44,34 @@ Hide untracked files (so `dotfiles status` doesn't list every file in your home 
 
 ```bash
 dotfiles config --local status.showUntrackedFiles no
-
 ```
+
+### 4. Bootstrap Environment (Plugins, TPM, Agentic Skills)
+
+Run the included bootstrap script to install Oh My Zsh, custom Zsh plugins, Tmux Plugin Manager (TPM), and the **Superpowers** skills repository:
+
+```bash
+~/scripts/bootstrap.sh
+```
+
+---
+
+## 🤖 AI & Agentic Coding (CodeCompanion + Superpowers)
+
+This setup uses **CodeCompanion** paired with the **[Superpowers](https://github.com/obra/superpowers)** development methodology.
+
+* **Methodology in Chat**: Enforces red-green TDD, Socratic brainstorming (`/brainstorm`), systematic debugging, and implementation plans.
+* **External Skills Dependency**: Superpowers is an external repository that lives at `~/.config/nvim/skills/superpowers`. It is automatically cloned and kept up-to-date by `~/scripts/bootstrap.sh`.
+* **Manual clone / update**:
+  ```bash
+  # Initial clone (if not using bootstrap.sh)
+  git clone https://github.com/obra/superpowers.git ~/.config/nvim/skills/superpowers
+
+  # Update anytime
+  git -C ~/.config/nvim/skills/superpowers pull
+  ```
+
+> **Note:** Without this repo present at `~/.config/nvim/skills/superpowers`, Neovim will still function normally with default rules, but automated skill invocations (`brainstorming`, `writing-plans`, `tdd`, etc.) will not find their definition files.
 
 ---
 
@@ -88,7 +114,8 @@ dotfiles push
 
 ## 📂 Included Configurations
 
-* **Zsh:** `.zshrc`
-* **Tmux:** `.tmux.conf`
-* **Neovim:** `.config/nvim/`
+* **Zsh:** `.zshrc` (with custom Oh My Zsh plugins)
+* **Tmux:** `.tmux.conf` (TPM-managed)
+* **Neovim:** `.config/nvim/` (CodeCompanion, LSP, Treesitter)
 * **Alacritty:** `.config/alacritty/`
+* **Bootstrap Script:** `scripts/bootstrap.sh`

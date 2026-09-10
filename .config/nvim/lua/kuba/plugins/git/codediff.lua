@@ -1,3 +1,11 @@
+local function review_pull_request()
+  vim.ui.input({ prompt = "Pull request number: " }, function(number)
+    if number and number ~= "" then
+      vim.cmd("CodeDiff pr " .. number)
+    end
+  end)
+end
+
 return {
   "esmuellert/codediff.nvim",
   lazy = true,
@@ -6,6 +14,7 @@ return {
     { "<leader>gd", "<cmd>CodeDiff<cr>", desc = "Diff working tree (explorer)" },
     { "<leader>gh", "<cmd>CodeDiff history HEAD~50 %<cr>", desc = "File history (current file)" },
     { "<leader>gH", "<cmd>CodeDiff history<cr>", desc = "File history (repo)" },
+    { "<leader>gP", review_pull_request, desc = "Review pull request" },
     { "<leader>gx", "<cmd>tabclose<cr>", desc = "Close CodeDiff tab" },
   },
   opts = {
@@ -21,7 +30,7 @@ return {
     explorer = {
       position = "left",
       width = 35,
-      listing_style = "tree",
+      view_mode = "tree",
       flatten_dirs = true,
       initial_focus = "explorer",
       icons = {
@@ -48,6 +57,11 @@ return {
         diff_get = "do",
         diff_put = "dp",
         toggle_layout = "t",
+        toggle_compact = "gc",
+        stage_hunk = "<leader>hs",
+        unstage_hunk = "<leader>hu",
+        discard_hunk = "<leader>hr",
+        hunk_textobject = "ih",
         show_help = "g?",
       },
       explorer = {
