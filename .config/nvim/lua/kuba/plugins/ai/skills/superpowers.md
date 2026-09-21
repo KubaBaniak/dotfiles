@@ -60,6 +60,8 @@ When any task matches a skill, read its `SKILL.md` before taking action:
   - *When to use*: Concurrent independent tasks.
 - **writing-skills**: `~/.config/nvim/skills/superpowers/skills/writing-skills/SKILL.md`
   - *When to use*: Creating or modifying skills.
+- **diagnosing-superpowers**: `~/.config/nvim/skills/superpowers/skills/diagnosing-superpowers/SKILL.md`
+  - *When to use*: Diagnosing why a superpowers session went wrong, stumbles, repeated work, or filing a bug report.
 - **using-superpowers**: `~/.config/nvim/skills/superpowers/skills/using-superpowers/SKILL.md`
   - *When to use*: Core bootstrap guide, red flags, rationalization checks.
 

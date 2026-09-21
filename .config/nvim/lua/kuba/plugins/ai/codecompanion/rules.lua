@@ -63,6 +63,22 @@ return {
         description = "Subagent-driven development",
         files = { constants.SUPERPOWERS_SKILLS_DIR .. "/subagent-driven-development/SKILL.md" },
       },
+      ["dispatching-parallel-agents"] = {
+        description = "Dispatch independent concurrent subagent tasks",
+        files = { constants.SUPERPOWERS_SKILLS_DIR .. "/dispatching-parallel-agents/SKILL.md" },
+      },
+      ["writing-skills"] = {
+        description = "Create, edit, and verify skills",
+        files = { constants.SUPERPOWERS_SKILLS_DIR .. "/writing-skills/SKILL.md" },
+      },
+      ["diagnosing-superpowers"] = {
+        description = "Diagnose superpowers session issues and bug reporting",
+        files = { constants.SUPERPOWERS_SKILLS_DIR .. "/diagnosing-superpowers/SKILL.md" },
+      },
+      ["using-superpowers"] = {
+        description = "Core bootstrap guide, red flags, rationalization checks",
+        files = { constants.SUPERPOWERS_SKILLS_DIR .. "/using-superpowers/SKILL.md" },
+      },
     },
   },
   project = {
