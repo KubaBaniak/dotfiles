@@ -18,6 +18,7 @@ local parsers = {
   "luadoc",
   "markdown",
   "markdown_inline",
+  "latex",
   "query",
   "regex",
   "scss",

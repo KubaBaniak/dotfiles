@@ -7,17 +7,16 @@ return {
         "ts_ls",
         "html",
         "cssls",
+        "css_variables",
         "tailwindcss",
         "lua_ls",
         "eslint",
         "jsonls",
-        -- NOTE: "copilot" was removed -- it is not an lspconfig server you want
-        -- here. Copilot is provided by zbirenbaum/copilot.lua; listing it would
-        -- start a second, conflicting Copilot client.
+        "prismals",
       },
-      -- Servers installed via Mason are enabled automatically (vim.lsp.enable
-      -- is called for you). Stated explicitly so the behaviour is obvious.
-      automatic_enable = true,
+      automatic_enable = {
+        exclude = { "copilot", "stylua" },
+      },
     },
     dependencies = {
       -- mason.nvim must be set up BEFORE mason-lspconfig; listing it as a

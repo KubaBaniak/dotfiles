@@ -1,7 +1,7 @@
 return {
   "saghen/blink.cmp",
   version = "1.*",
-  event = { "InsertEnter", "CmdlineEnter" },
+  lazy = false, -- Load early so plugin/blink-cmp.lua registers LSP capabilities before servers start
   dependencies = {
     {
       "L3MON4D3/LuaSnip",
