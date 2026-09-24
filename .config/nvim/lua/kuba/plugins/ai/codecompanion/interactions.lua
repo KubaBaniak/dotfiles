@@ -9,7 +9,7 @@ return {
         compaction = {
           adapter = {
             name = "copilot",
-            model = "gpt-5.6-luna",
+            model = "gpt-6-luna",
           },
           fallback_to_chat_adapter = true,
         },

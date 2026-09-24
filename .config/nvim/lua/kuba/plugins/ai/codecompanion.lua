@@ -5,7 +5,6 @@ return {
     "nvim-treesitter/nvim-treesitter",
     "zbirenbaum/copilot.lua",
     "nvim-telescope/telescope.nvim",
-    "stevearc/dressing.nvim",
     "MeanderingProgrammer/render-markdown.nvim",
     "ravitemer/codecompanion-history.nvim",
   },

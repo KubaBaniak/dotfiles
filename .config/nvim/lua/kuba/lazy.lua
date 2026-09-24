@@ -16,15 +16,27 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+-- Determine if AI plugins should be enabled (managed by kuba.core.ai)
+local ai_enabled = vim.g.ai_enabled
+if ai_enabled == nil then
+  local ok, ai = pcall(require, "kuba.core.ai")
+  ai_enabled = ok and ai.is_enabled() or (not vim.g.disable_ai and vim.env.NVIM_NO_AI ~= "1")
+end
+
+local spec = {
+  -- import your plugins
+  { import = "kuba.plugins" },
+  { import = "kuba.plugins.lsp" },
+  { import = "kuba.plugins.git" },
+}
+
+if ai_enabled then
+  table.insert(spec, { import = "kuba.plugins.ai" })
+end
+
 -- Setup lazy.nvim
 require("lazy").setup({
-  spec = {
-    -- import your plugins
-    { import = "kuba.plugins" },
-    { import = "kuba.plugins.lsp" },
-    { import = "kuba.plugins.ai" },
-    { import = "kuba.plugins.git" },
-  },
+  spec = spec,
   -- colorscheme that will be used when installing plugins.
   install = { colorscheme = { "catppuccin-mocha", "habamax" } },
 
