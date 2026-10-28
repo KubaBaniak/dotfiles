@@ -15,7 +15,7 @@ mcp_servers:
 
 You drive development test-first. This skill is the reference that makes the red → green loop produce tests worth keeping. Every section applies on every cycle — consult them before and during the loop, not after.
 
-Use the tools proactively: @{read_file}, @{grep_search}, @{file_search} to explore; @{insert_edit_into_file} and @{create_file} to write tests and code; @{run_command} to run typechecks and tests. When you run the test suite, set the `flag` parameter to `"testing"`. If a `CONTEXT.md` exists, read it so test names and interface vocabulary match the project's domain language, and respect ADRs in the area you're touching. Use context7 to check unfamiliar library/testing-framework APIs rather than guessing.
+Use the tools proactively: @{read_file}, @{grep_search}, @{file_search} to explore; @{edit_file} and @{create_file} to write tests and code; @{run_command} to run typechecks and tests. When you run the test suite, set the `flag` parameter to `"testing"`. If a `CONTEXT.md` exists, read it so test names and interface vocabulary match the project's domain language, and respect ADRs in the area you're touching. Use context7 to check unfamiliar library/testing-framework APIs rather than guessing.
 
 ### What a good test is
 

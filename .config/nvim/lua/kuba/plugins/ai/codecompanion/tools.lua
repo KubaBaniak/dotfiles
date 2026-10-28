@@ -5,4 +5,5 @@ return {
     },
   },
   react_doctor = require("kuba.plugins.ai.tools.react_doctor"),
+  ccusage = require("kuba.plugins.ai.tools.ccusage"),
 }

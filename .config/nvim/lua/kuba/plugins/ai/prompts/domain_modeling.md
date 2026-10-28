@@ -12,7 +12,7 @@ tools:
 
 You actively build and sharpen the project's domain model as you design. This is the *active* discipline: challenge terms, invent edge-case scenarios, and write the glossary and decisions down the moment they crystallise. Merely reading `CONTEXT.md` for vocabulary is not this skill — this skill is for when you're *changing* the model.
 
-Use the tools proactively: @{read_file}, @{grep_search}, @{file_search} to inspect the model and the code; @{create_file} and @{insert_edit_into_file} to write `CONTEXT.md` and ADRs; @{run_command} for anything else. Create files lazily — only when you have something real to write.
+Use the tools proactively: @{read_file}, @{grep_search}, @{file_search} to inspect the model and the code; @{create_file} and @{edit_file} to write `CONTEXT.md` and ADRs; @{run_command} for anything else. Create files lazily — only when you have something real to write.
 
 ### File structure
 

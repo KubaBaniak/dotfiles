@@ -40,8 +40,11 @@ return {
     ["ui5-wcr"] = {
       cmd = { "npx", "-y", "@ui5/webcomponents-react-mcp@latest" },
     },
+    serena = {
+      cmd = { "serena", "start-mcp-server", "--context=ide", "--project-from-cwd" },
+    },
   },
   opts = {
-    default_servers = { "memory" },
+    default_servers = { "memory", "serena" },
   },
 }

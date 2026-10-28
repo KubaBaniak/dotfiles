@@ -6,8 +6,9 @@ local constants = require("kuba.plugins.ai.codecompanion.constants")
 -- (AGENT.md, AGENTS.md, CLAUDE.md, .cursorrules, .clinerules,
 -- .github/copilot-instructions.md, ...). Missing files are simply skipped.
 --
--- `superpowers` loads the development methodology bootstrap and skill catalog.
--- `superpowers-skills` provides sub-groups for individual skills in the picker.
+-- `superpowers` loads the upstream bootstrap and local tool mapping.
+-- `tool_use` keeps general tool-selection guidance separate from Superpowers.
+-- Individual skills are discovered and advertised by skills.lua (/skills picker).
 return {
   superpowers = {
     description = "Superpowers development methodology and bootstrap",
@@ -16,69 +17,11 @@ return {
       constants.SUPERPOWERS_RULES,
     },
   },
-  ["superpowers-skills"] = {
-    description = "Superpowers individual skills",
+  tool_use = {
+    description = "General tool-selection guidance",
+    parser = "codecompanion",
     files = {
-      ["brainstorming"] = {
-        description = "Socratic design refinement before writing code",
-        files = { constants.SUPERPOWERS_SKILLS_DIR .. "/brainstorming/SKILL.md" },
-      },
-      ["writing-plans"] = {
-        description = "Break work into bite-sized tasks",
-        files = { constants.SUPERPOWERS_SKILLS_DIR .. "/writing-plans/SKILL.md" },
-      },
-      ["executing-plans"] = {
-        description = "Batch execution with checkpoints",
-        files = { constants.SUPERPOWERS_SKILLS_DIR .. "/executing-plans/SKILL.md" },
-      },
-      ["tdd"] = {
-        description = "RED-GREEN-REFACTOR cycle",
-        files = { constants.SUPERPOWERS_SKILLS_DIR .. "/test-driven-development/SKILL.md" },
-      },
-      ["systematic-debugging"] = {
-        description = "4-phase root cause process",
-        files = { constants.SUPERPOWERS_SKILLS_DIR .. "/systematic-debugging/SKILL.md" },
-      },
-      ["verification"] = {
-        description = "Verify before completion",
-        files = { constants.SUPERPOWERS_SKILLS_DIR .. "/verification-before-completion/SKILL.md" },
-      },
-      ["requesting-review"] = {
-        description = "Pre-review checklist",
-        files = { constants.SUPERPOWERS_SKILLS_DIR .. "/requesting-code-review/SKILL.md" },
-      },
-      ["receiving-review"] = {
-        description = "Responding to code review",
-        files = { constants.SUPERPOWERS_SKILLS_DIR .. "/receiving-code-review/SKILL.md" },
-      },
-      ["git-worktrees"] = {
-        description = "Parallel development branches",
-        files = { constants.SUPERPOWERS_SKILLS_DIR .. "/using-git-worktrees/SKILL.md" },
-      },
-      ["finishing-branch"] = {
-        description = "Merge/PR decision workflow",
-        files = { constants.SUPERPOWERS_SKILLS_DIR .. "/finishing-a-development-branch/SKILL.md" },
-      },
-      ["subagent-dev"] = {
-        description = "Subagent-driven development",
-        files = { constants.SUPERPOWERS_SKILLS_DIR .. "/subagent-driven-development/SKILL.md" },
-      },
-      ["dispatching-parallel-agents"] = {
-        description = "Dispatch independent concurrent subagent tasks",
-        files = { constants.SUPERPOWERS_SKILLS_DIR .. "/dispatching-parallel-agents/SKILL.md" },
-      },
-      ["writing-skills"] = {
-        description = "Create, edit, and verify skills",
-        files = { constants.SUPERPOWERS_SKILLS_DIR .. "/writing-skills/SKILL.md" },
-      },
-      ["diagnosing-superpowers"] = {
-        description = "Diagnose superpowers session issues and bug reporting",
-        files = { constants.SUPERPOWERS_SKILLS_DIR .. "/diagnosing-superpowers/SKILL.md" },
-      },
-      ["using-superpowers"] = {
-        description = "Core bootstrap guide, red flags, rationalization checks",
-        files = { constants.SUPERPOWERS_SKILLS_DIR .. "/using-superpowers/SKILL.md" },
-      },
+      vim.fn.stdpath("config") .. "/lua/kuba/plugins/ai/rules/tool-use.md",
     },
   },
   project = {
@@ -91,7 +34,7 @@ return {
   opts = {
     chat = {
       -- Load these rule groups into every chat...
-      autoload = { "default", "superpowers", "project" },
+      autoload = { "default", "superpowers", "tool_use", "project" },
       -- ...including chats started from the prompt library (the skills).
       autoload_groups_in_prompt_library = true,
     },

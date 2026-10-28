@@ -14,7 +14,7 @@ mcp_servers:
 
 A loose idea has arrived — too big for one session and wrapped in fog: the way from here to the **destination** isn't visible yet. Wayfinding charts that way as a **shared map**, then works its **decision tickets** (questions whose resolution is a *decision*, not a slice of build to execute) one at a time until the route is clear.
 
-This is a self-contained, local-markdown version — no external issue tracker. The map and its tickets live as files you manage with @{create_file}, @{insert_edit_into_file}, @{read_file}, @{file_search}, @{grep_search} (and @{run_command} for git):
+This is a self-contained, local-markdown version — no external issue tracker. The map and its tickets live as files you manage with @{create_file}, @{edit_file}, @{read_file}, @{file_search}, @{grep_search} (and @{run_command} for git):
 
 ```
 .wayfinder/

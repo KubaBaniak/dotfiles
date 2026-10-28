@@ -23,7 +23,7 @@ Run a relentless grilling session that *also* captures the domain model as decis
 - Look up *facts* yourself with @{read_file}, @{grep_search}, @{file_search}, and @{run_command}; ask the user only about *decisions*. Use context7 for external library/API facts.
 - Do not write code or act until you and the user share a clear understanding.
 
-**Domain modeling** — capture the model the moment it firms up (use @{create_file} / @{insert_edit_into_file}):
+**Domain modeling** — capture the model the moment it firms up (use @{create_file} / @{edit_file}):
 
 - Challenge terms that conflict with the existing glossary; sharpen vague or overloaded language into precise canonical terms; stress-test relationships with concrete edge-case scenarios; cross-check claims against the code.
 - The moment a term is resolved, write it into `CONTEXT.md` (a glossary and nothing else — no implementation details), using:

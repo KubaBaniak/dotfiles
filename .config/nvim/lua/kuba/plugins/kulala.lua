@@ -1,4 +1,4 @@
-return {
+local M = {
   "mistweaverco/kulala.nvim",
   -- Load before session save/restore so VimLeavePre and SessionLoadPost hooks are registered.
   event = { "SessionLoadPost", "VimLeavePre" },
@@ -191,3 +191,5 @@ return {
     kulala_keymaps_prefix = "",
   },
 }
+
+return M

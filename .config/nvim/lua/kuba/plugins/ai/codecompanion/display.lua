@@ -3,6 +3,7 @@ return {
     intro_message = "Welcome to CodeCompanion ✨! Press ? for options",
     separator = "─",
     show_context = true,
+    fold_context = false,
     show_header_separator = false,
     show_settings = false,
     show_token_count = true,

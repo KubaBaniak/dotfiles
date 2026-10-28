@@ -33,6 +33,12 @@ vim.diagnostic.config({
 })
 
 -- Global diagnostic & utility toggles
+vim.keymap.set("n", "]d", function()
+  vim.diagnostic.jump({ count = 1, float = true })
+end, { desc = "Next diagnostic" })
+vim.keymap.set("n", "[d", function()
+  vim.diagnostic.jump({ count = -1, float = true })
+end, { desc = "Previous diagnostic" })
 vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "Line diagnostics" })
 vim.keymap.set("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", { desc = "Buffer diagnostics" })
 vim.keymap.set("n", "<leader>rs", "<cmd>LspRestart<CR>", { desc = "Restart LSP" })
@@ -68,8 +74,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     --   K   -> hover                 grn -> rename
     --   gra -> code action           grr -> references
     --   gri -> implementation        gO  -> document symbols
-    --   gD  -> declaration           [d/ ]d -> prev/next diagnostic
-    --   <C-s> (insert) -> signature help
+    --   gD  -> declaration           <C-s> (insert) -> signature help
 
     -- Telescope-powered navigation
     map("n", "gd", "<cmd>Telescope lsp_definitions<CR>", "Go to definition")
